@@ -1,0 +1,23 @@
+{% extends "./base.html" %}
+
+{% block tittle %} Confirmar Eliminación {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Confirmar Eliminación</h2>
+        <div class="card">
+            <div class="card-body">
+                <p>¿Estás seguro que deseas eliminar al usuario {{ usuario.Nombre_User }}?</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-danger btn-block text-white">Eliminar</button>
+                        <a href="{% url 'usuario_list' %}" class="btn btn-secondary btn-block">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

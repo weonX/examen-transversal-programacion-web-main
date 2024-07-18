@@ -1,0 +1,33 @@
+{% extends "./base.html" %}
+
+{% block tittle %} Editar producto {% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Editar producto</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'actualizarproducto' %}" method="POST">{% csrf_token %}
+                    <input type="hidden" id="ID_Producto" name="ID_Producto" value="{{ producto.ID_Producto }}">
+                    <div class="form-group">
+                        <input type="text" id="Nombre_Produc" name="Nombre_Produc" class="form-control" placeholder="Producto" value="{{ producto.Nombre_Produc }}" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="Descripción" name="Descripción" class="form-control" placeholder="Descripción" value="{{ producto.Descripción }}" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Actualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

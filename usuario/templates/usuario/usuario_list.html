@@ -1,0 +1,59 @@
+{% extends "./base.html" %}
+
+{% block tittle %} Usuarios {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de usuarios</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'usuario_create' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="Nombre_User" name="Nombre_User" class="form-control" placeholder="Nombre de Usuario" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="email" id="Correo" name="Correo" class="form-control" placeholder="Correo" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" id="contraseña" name="contraseña" class="form-control" placeholder="Contraseña" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Usuarios</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Correo</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ u.Nombre_User }}</td>
+                        <td>{{ u.Correo }}</td>
+                        <td><a href="{% url 'usuario_update' u.pk %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'usuario_delete' u.pk %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

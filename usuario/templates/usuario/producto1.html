@@ -1,0 +1,260 @@
+{% extends "./base.html" %}
+
+{% block tittle %} productos {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <!-- Gestión de Productos -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de productos</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'registrarproducto' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNumero_Id" name="txtNumero_Id" class="form-control" placeholder="Número de ID" minlength="1" maxlength="10" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtproducto" name="txtproducto" class="form-control" placeholder="Producto" minlength="1" maxlength="10" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtdescripcion" name="txtdescripcion" class="form-control" placeholder="Descripción" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Productos frescos y al mejor precio</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Numero_Id</th>
+                        <th>Producto</th>
+                        <th>Descripción</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in Producto %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.ID_Producto }}</td>
+                        <td>{{ p.Nombre_Produc }}</td>
+                        <td>{{ p.Descripción }}</td>
+                        <td><a href="{% url 'editarproducto' p.ID_Producto %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'eliminarproducto' p.ID_Producto %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <!-- Gestión de Usuarios -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de usuarios</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'usuario_create' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre_User" name="txtNombre_User" class="form-control" placeholder="Nombre de Usuario" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" placeholder="Correo" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="password" id="txtContraseña" name="txtContraseña" class="form-control" placeholder="Contraseña" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Usuarios</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre de Usuario</th>
+                        <th>Correo</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in usuarios %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ u.Nombre_User }}</td>
+                        <td>{{ u.Correo }}</td>
+                        <td><a href="{% url 'usuario_update' u.pk %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'usuario_delete' u.pk %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <!-- Gestión de Precios -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de precios</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'precio_create' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre_Precio" name="txtNombre_Precio" class="form-control" placeholder="Nombre de Precio" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="number" id="txtPrecio" name="txtPrecio" class="form-control" placeholder="Precio" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Precios</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in precios %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.Nombre_Precio }}</td>
+                        <td>{{ p.Precio }}</td>
+                        <td><a href="{% url 'precio_update' p.pk %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'precio_delete' p.pk %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <!-- Gestión de Categorías -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de categorías</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'categoria_create' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre_Categoria" name="txtNombre_Categoria" class="form-control" placeholder="Nombre de Categoría" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Categorías</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in categorias %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ c.Nombre_Categoria }}</td>
+                        <td><a href="{% url 'categoria_update' c.pk %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'categoria_delete' c.pk %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <!-- Gestión de Supermercados -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <h2>Gestión de supermercados</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'supermercado_create' %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtNombre_Supermercado" name="txtNombre_Supermercado" class="form-control" placeholder="Nombre de Supermercado" minlength="1" maxlength="50" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>Supermercados</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in supermercados %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s.Nombre_Supermercado }}</td>
+                        <td><a href="{% url 'supermercado_update' s.pk %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url 'supermercado_delete' s.pk %}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
